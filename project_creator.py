@@ -32,7 +32,574 @@ PROJECTS_DIR = Path("workspace/projects")
 
 # Templates de proyectos
 PROJECT_TEMPLATES = {
-    "python": {
+    # Frontend Templates
+    "html": {
+        "basic": {
+            "name": "HTML5 Basic",
+            "description": "Página HTML5 básica",
+            "files": {
+                "index.html": '''<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido</h1>
+    </header>
+    <main>
+        <section class="hero">
+            <h2>Hero Section</h2>
+            <p>Contenido principal aquí</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Mi Sitio</p>
+    </footer>
+</body>
+</html>''',
+                "styles.css": '''/* Basic Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+header {
+    background: #2c3e50;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+footer {
+    background: #34495e;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+}'''
+            }
+        },
+        "tailwind": {
+            "name": "HTML5 + Tailwind",
+            "description": "Página con Tailwind CSS",
+            "files": {
+                "index.html": '''<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Página</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <header class="bg-blue-600 text-white p-4">
+        <h1 class="text-3xl font-bold text-center">Bienvenido</h1>
+    </header>
+    <main class="max-w-4xl mx-auto p-4">
+        <section class="bg-white rounded-lg shadow-md p-6 mb-4">
+            <h2 class="text-2xl font-semibold mb-4">Hero Section</h2>
+            <p class="text-gray-700">Contenido principal aquí</p>
+        </section>
+    </main>
+    <footer class="bg-gray-800 text-white text-center p-4 mt-8">
+        <p>&copy; 2024 Mi Sitio</p>
+    </footer>
+</body>
+</html>''',
+                "README.md": "# HTML + Tailwind\n\nAbre index.html en tu navegador"
+            }
+        },
+        "responsive": {
+            "name": "Responsive Layout",
+            "description": "Layout responsive con Grid y Flexbox",
+            "files": {
+                "index.html": '''<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Layout</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Logo</div>
+        <ul class="nav-links">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Acerca</a></li>
+            <li><a href="#">Servicios</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+    </nav>
+    <main class="container">
+        <div class="grid">
+            <article class="card">Contenido 1</article>
+            <article class="card">Contenido 2</article>
+            <article class="card">Contenido 3</article>
+            <article class="card">Contenido 4</article>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2024</p>
+    </footer>
+</body>
+</html>''',
+                "styles.css": '''* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar {
+    background: #1a1a2e;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+}
+
+.container {
+    flex: 1;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    width: 100%;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.footer {
+    background: #1a1a2e;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+}'''
+            }
+        },
+        "landing": {
+            "name": "Landing Page",
+            "description": "Landing page moderna",
+            "files": {
+                "index.html": '''<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Brand</div>
+        <div class="nav-links">
+            <a href="#features">Características</a>
+            <a href="#pricing">Precios</a>
+            <a href="#contact" class="btn-primary">Contacto</a>
+        </div>
+    </nav>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Construye algo increíble</h1>
+            <p>La mejor solución para tu negocio</p>
+            <a href="#get-started" class="btn-cta">Comenzar</a>
+        </div>
+    </section>
+    
+    <section id="features" class="features">
+        <h2>Características</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Rápido</h3>
+                <p>Optimizado para máximo rendimiento</p>
+            </div>
+            <div class="feature-card">
+                <h3>Seguro</h3>
+                <p>Protección de nivel empresarial</p>
+            </div>
+            <div class="feature-card">
+                <h3>Escalable</h3>
+                <p>Crece sin límites</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <p>&copy; 2024 Tu Empresa</p>
+    </footer>
+</body>
+</html>''',
+                "styles.css": ''':root {
+    --primary: #3b82f6;
+    --dark: #1e293b;
+    --light: #f8fafc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--dark);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white !important;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+}
+
+.hero {
+    background: linear-gradient(135deg, var(--primary), #1e40af);
+    color: white;
+    text-align: center;
+    padding: 6rem 1rem;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.btn-cta {
+    display: inline-block;
+    background: white;
+    color: var(--primary);
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: transform 0.2s;
+}
+
+.btn-cta:hover {
+    transform: translateY(-2px);
+}
+
+.features {
+    padding: 4rem 5%;
+    background: var(--light);
+}
+
+.features h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2rem;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.feature-card h3 {
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.footer {
+    background: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 2rem;
+}'''
+            }
+        },
+        "dashboard": {
+            "name": "Admin Dashboard",
+            "description": "Dashboard de administración",
+            "files": {
+                "index.html": '''<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="logo">Admin Panel</div>
+        <nav>
+            <a href="#" class="active">Dashboard</a>
+            <a href="#">Usuarios</a>
+            <a href="#">Productos</a>
+            <a href="#">Órdenes</a>
+            <a href="#">Configuración</a>
+        </nav>
+    </aside>
+    
+    <main class="main-content">
+        <header class="top-bar">
+            <h1>Dashboard</h1>
+            <div class="user">Admin</div>
+        </header>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <h3>Usuarios</h3>
+                <p class="number">1,234</p>
+            </div>
+            <div class="stat-card">
+                <h3>Ventas</h3>
+                <p class="number">$12,345</p>
+            </div>
+            <div class="stat-card">
+                <h3>Órdenes</h3>
+                <p class="number">89</p>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="card">
+                <h2>Actividad Reciente</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Acción</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Juan</td><td>Login</td><td>Ahora</td></tr>
+                        <tr><td>María</td><td>Compra</td><td>Hace 5 min</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>''',
+                "styles.css": '''* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    font-family: system-ui, sans-serif;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background: #1e293b;
+    color: white;
+    padding: 1rem;
+    position: fixed;
+    height: 100%;
+}
+
+.sidebar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 1rem;
+    border-bottom: 1px solid #334155;
+    margin-bottom: 1rem;
+}
+
+.sidebar nav a {
+    display: block;
+    color: #94a3b8;
+    text-decoration: none;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 0.25rem;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background: #334155;
+    color: white;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    background: #f1f5f9;
+    min-height: 100vh;
+}
+
+.top-bar {
+    background: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.stat-card h3 {
+    color: #64748b;
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card .number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #0f172a;
+}
+
+.content {
+    padding: 0 2rem 2rem;
+}
+
+.card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+    margin-bottom: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background: #f8fafc;
+    font-weight: 600;
+}'''
+            }
+        }
+    },
+    
+    # JavaScript/TypeScript Templates
+    "javascript": {
         "flask": {
             "name": "Flask Web App",
             "description": "Aplicación web con Flask",
