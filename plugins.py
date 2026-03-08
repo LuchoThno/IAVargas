@@ -206,6 +206,14 @@ class HelpPlugin(Plugin):
 - `busca: query` - Búsqueda web
 - `ayuda` - Mostrar ayuda
 
+**Análisis de Código:**
+- `/analyze` - Analizar código
+- `/refactor` - Refactorizar código
+- `/test` - Generar tests
+- `/debug` - Depurar código
+- `/optimize` - Optimizar código
+- `/generate` - Generar código
+
 **Plugins:**
 - `calc:` - Calculadora matemática
 - `hora` / `fecha` - Fecha y hora actual
@@ -218,6 +226,342 @@ class HelpPlugin(Plugin):
     
     def help(self) -> str:
         return "**Ayuda** - Muestra todos los comandos disponibles"
+
+
+class CodeAnalyzePlugin(Plugin):
+    """Plugin para análisis de código"""
+    
+    name = "Analizar Código"
+    description = "Analiza código para detectar problemas y sugerencias"
+    commands = ["/analyze", "analiza:", "revisar:"]
+    
+    def __init__(self):
+        self.analyzer = None
+    
+    def execute(self, args: str) -> str:
+        """Analiza código"""
+        if not args.strip():
+            return "Uso: /analyze [código Python] o analiza: [código]"
+        
+        # Intentar importar el analizador
+        try:
+            from code_analyzer import CodeAnalyzer
+            if not self.analyzer:
+                self.analyzer = CodeAnalyzer()
+            
+            result = self.analyzer.analyze(args, "python")
+            
+            output = f"**Análisis de Código**\n\n"
+            output += f"Líneas: {result.get('lines', 0)}\n"
+            output += f"Puntuación: {result.get('score', 0)}/100\n\n"
+            
+            if result.get("security_issues"):
+                output += "**⚠️ Problemas de Seguridad:**\n"
+                for issue in result["security_issues"]:
+                    output += f"- {issue['message']}\n"
+                output += "\n"
+            
+            if result.get("complexity"):
+                comp = result["complexity"]
+                output += "**📊 Complejidad:**\n"
+                output += f"- Complejidad ciclomática: {comp.get('cyclomatic', 0)}\n"
+                output += f"- Funciones: {comp.get('functions', 0)}\n"
+                output += f"- Clases: {comp.get('classes', 0)}\n\n"
+            
+            if result.get("suggestions"):
+                output += "**💡 Sugerencias:**\n"
+                for suggestion in result["suggestions"][:5]:
+                    output += f"- {suggestion}\n"
+            
+            return output
+        except ImportError:
+            return "Error: code_analyzer no está disponible. Instala las dependencias."
+        except Exception as e:
+            return f"Error al analizar: {str(e)}"
+    
+    def help(self) -> str:
+        return """**Analizar Código** - Analiza código para detectar problemas
+Comandos: `/analyze`, `analiza:`, `revisar:`
+Ejemplo:
+- `/analyze def hola(): print("hola")`"""
+
+
+class CodeRefactorPlugin(Plugin):
+    """Plugin para refactorizar código"""
+    
+    name = "Refactorizar"
+    description = "Refactoriza código para mejorarlo"
+    commands = ["/refactor", "refactor:"]
+    
+    def __init__(self):
+        self.analyzer = None
+    
+    def execute(self, args: str) -> str:
+        """Refactoriza código"""
+        if not args.strip():
+            return "Uso: /refactor [código Python]"
+        
+        try:
+            from code_analyzer import CodeAnalyzer
+            if not self.analyzer:
+                self.analyzer = CodeAnalyzer()
+            
+            result = self.analyzer.refactor(args, "python")
+            
+            if "error" in result:
+                return f"Error: {result['error']}"
+            
+            output = "**Código Refactorizado:**\n\n"
+            output += "```python\n"
+            output += result.get("refactored_code", "") + "\n"
+            output += "```\n\n"
+            
+            return output
+        except ImportError:
+            return "Error: code_analyzer no está disponible."
+        except Exception as e:
+            return f"Error: {str(e)}"
+    
+    def help(self) -> str:
+        return """**Refactorizar** - Refactoriza código
+Comandos: `/refactor`, `refactor:`
+Ejemplo:
+- `/refactor def hola(): print("hola")`"""
+
+
+class CodeTestPlugin(Plugin):
+    """Plugin para generar tests"""
+    
+    name = "Generar Tests"
+    description = "Genera tests unitarios para el código"
+    commands = ["/test", "test:", "genera test:"]
+    
+    def __init__(self):
+        self.analyzer = None
+    
+    def execute(self, args: str) -> str:
+        """Genera tests"""
+        if not args.strip():
+            return "Uso: /test [código Python]"
+        
+        try:
+            from code_analyzer import CodeAnalyzer
+            if not self.analyzer:
+                self.analyzer = CodeAnalyzer()
+            
+            result = self.analyzer.generate_tests(args, "python", "pytest")
+            
+            if "error" in result:
+                return f"Error: {result['error']}"
+            
+            output = f"**Tests Generados ({result.get('framework', 'pytest')}):**\n\n"
+            output += "```python\n"
+            output += result.get("tests", "") + "\n"
+            output += "```\n"
+            
+            return output
+        except ImportError:
+            return "Error: code_analyzer no está disponible."
+        except Exception as e:
+            return f"Error: {str(e)}"
+    
+    def help(self) -> str:
+        return """**Generar Tests** - Crea tests unitarios
+Comandos: `/test`, `test:`
+Ejemplo:
+- `/test def suma(a, b): return a + b`"""
+
+
+class CodeDebugPlugin(Plugin):
+    """Plugin para depurar código"""
+    
+    name = "Depurar"
+    description = "Encuentra y corrige errores en el código"
+    commands = ["/debug", "debug:", "arreglar:"]
+    
+    def __init__(self):
+        self.analyzer = None
+    
+    def execute(self, args: str) -> str:
+        """Depura código"""
+        if not args.strip():
+            return "Uso: /debug [código Python]"
+        
+        try:
+            from code_analyzer import CodeAnalyzer
+            if not self.analyzer:
+                self.analyzer = CodeAnalyzer()
+            
+            result = self.analyzer.debug(args, "python")
+            
+            if "error" in result:
+                return f"Error: {result['error']}"
+            
+            output = "**Código Corregido:**\n\n"
+            output += "```python\n"
+            output += result.get("fixed_code", "") + "\n"
+            output += "```\n"
+            
+            return output
+        except ImportError:
+            return "Error: code_analyzer no está disponible."
+        except Exception as e:
+            return f"Error: {str(e)}"
+    
+    def help(self) -> str:
+        return """**Depurar** - Encuentra y corrige errores
+Comandos: `/debug`, `debug:`
+Ejemplo:
+- `/debug print("hola"`"""
+
+
+class CodeOptimizePlugin(Plugin):
+    """Plugin para optimizar código"""
+    
+    name = "Optimizar"
+    description = "Optimiza código para mejor rendimiento"
+    commands = ["/optimize", "optimizar:", "mejora:"]
+    
+    def __init__(self):
+        self.analyzer = None
+    
+    def execute(self, args: str) -> str:
+        """Optimiza código"""
+        if not args.strip():
+            return "Uso: /optimize [código Python]"
+        
+        try:
+            from code_analyzer import CodeAnalyzer
+            if not self.analyzer:
+                self.analyzer = CodeAnalyzer()
+            
+            result = self.analyzer.optimize(args, "python")
+            
+            if "error" in result:
+                return f"Error: {result['error']}"
+            
+            output = "**Código Optimizado:**\n\n"
+            output += "```python\n"
+            output += result.get("optimized_code", "") + "\n"
+            output += "```\n"
+            
+            return output
+        except ImportError:
+            return "Error: code_analyzer no está disponible."
+        except Exception as e:
+            return f"Error: {str(e)}"
+    
+    def help(self) -> str:
+        return """**Optimizar** - Optimiza código para mejor rendimiento
+Comandos: `/optimize`, `optimizar:`
+Ejemplo:
+- `/optimize for i in range(1000): print(i)`"""
+
+
+class CodeGeneratePlugin(Plugin):
+    """Plugin para generar código"""
+    
+    name = "Generar Código"
+    description = "Genera código basado en descripción"
+    commands = ["/generate", "genera:", "crear:"]
+    
+    def __init__(self):
+        self.creator = None
+    
+    def execute(self, args: str) -> str:
+        """Genera código"""
+        if not args.strip():
+            return "Uso: /generate [descripción del código]"
+        
+        try:
+            from project_creator import ProjectCreator
+            if not self.creator:
+                self.creator = ProjectCreator()
+            
+            result = self.creator.generate(args, "python")
+            
+            if not result.get("success"):
+                return f"Error: {result.get('error', 'Unknown error')}"
+            
+            output = "**Código Generado:**\n\n"
+            
+            files = result.get("files", {})
+            if files:
+                for file_name in list(files.keys())[:3]:
+                    output += f"### {file_name}\n"
+                    output += "```python\n"
+                    output += files[file_name][:500] + "\n"
+                    output += "```\n\n"
+            
+            return output
+        except ImportError:
+            return "Error: project_creator no está disponible."
+        except Exception as e:
+            return f"Error: {str(e)}"
+    
+    def help(self) -> str:
+        return """**Generar Código** - Crea código desde cero
+Comandos: `/generate`, `genera:`
+Ejemplo:
+- `/generate función que calcule factorial`"""
+
+
+class ExecuteMultiPlugin(Plugin):
+    """Plugin para ejecutar múltiples lenguajes"""
+    
+    name = "Ejecutar Código"
+    description = "Ejecuta código en múltiples lenguajes"
+    commands = ["ejecuta:", "run:", "ejecutar:"]
+    
+    def __init__(self):
+        self.executor = None
+    
+    def execute(self, args: str) -> str:
+        """Ejecuta código"""
+        if not args.strip():
+            return "Uso: ejecuta: [código] (lenguaje: python)"
+        
+        try:
+            from language_executor import LanguageExecutor
+            if not self.executor:
+                self.executor = LanguageExecutor()
+            
+            # Detectar lenguaje
+            language = "python"
+            code = args
+            
+            # Si hay prefijo de lenguaje
+            if args.lower().startswith("python:"):
+                code = args[7:]
+                language = "python"
+            elif args.lower().startswith("js:"):
+                code = args[3:]
+                language = "javascript"
+            elif args.lower().startswith("node:"):
+                code = args[5:]
+                language = "javascript"
+            
+            result = self.executor.execute(code, language, timeout=10)
+            
+            output = f"**Ejecución ({language}):**\n\n"
+            
+            if result.get("success"):
+                output += f"✅ **Salida:**\n{result.get('stdout', 'Sin salida')}\n"
+            else:
+                output += f"❌ **Error:**\n{result.get('stderr', result.get('error', 'Unknown error'))}\n"
+            
+            return output
+        except ImportError:
+            return "Error: language_executor no está disponible."
+        except Exception as e:
+            return f"Error: {str(e)}"
+    
+    def help(self) -> str:
+        return """**Ejecutar Código** - Ejecuta código en múltiples lenguajes
+Comandos: `ejecuta:`, `run:`
+Ejemplos:
+- `ejecuta: print("hola")`
+- `ejecuta: js: console.log("hola")`"""
 
 
 class PluginManager:
@@ -234,6 +578,14 @@ class PluginManager:
         self.register(NotePlugin())
         self.register(TodoPlugin())
         self.register(HelpPlugin())
+        # Nuevos plugins de código
+        self.register(CodeAnalyzePlugin())
+        self.register(CodeRefactorPlugin())
+        self.register(CodeTestPlugin())
+        self.register(CodeDebugPlugin())
+        self.register(CodeOptimizePlugin())
+        self.register(CodeGeneratePlugin())
+        self.register(ExecuteMultiPlugin())
     
     def register(self, plugin: Plugin):
         """Registra un nuevo plugin"""

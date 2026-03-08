@@ -1,177 +1,231 @@
 # TODO: Implementación de Mejoras - IA Local Vargas 
 
-MEJORA DEL SISTEMA DE GESTIÓN DE DOCUMENTOS Y RAG
-=================================================
+🧠 Arquitectura de tu IA como asistente de programación
+Usuario
+  │
+  ▼
+IDE (VSCode / IntelliJ)
+  │
+  ▼
+Extension Plugin
+  │
+  ▼
+IA Local API
+  │
+  ├─ Code Analyzer
+  ├─ Code Generator
+  ├─ Code Refactor
+  ├─ Test Generator
+  └─ Execution Engine
+  │
+  ▼
+LLM (Ollama)
+1️⃣ Crear una API para tu IA
 
-Objetivo
---------
-Mejorar el sistema actual de procesamiento de documentos, embeddings y búsqueda semántica (RAG) para hacerlo más:
-- Escalable
-- Eficiente
-- Seguro
-- Modular
-- Preparado para producción
+Primero convierte tu IA en un servicio local.
 
-El sistema actual ya procesa:
-- PDFs
-- CSV
-- Excel
-- TXT
+Ejemplo usando FastAPI.
 
-También implementa:
-- Chunking de texto
-- Generación de embeddings con sentence-transformers
-- Búsqueda semántica con similaridad coseno
-- Sistema de caché
-- RAG básico
+from fastapi import FastAPI
+import ollama
 
-Sin embargo, se requieren mejoras importantes.
+app = FastAPI()
 
-Tareas a realizar
------------------
+@app.post("/ask")
+def ask(prompt: str):
+    response = ollama.chat(
+        model="llama3",
+        messages=[{"role":"user","content":prompt}]
+    )
+    return response["message"]["content"]
 
-1. Optimización de carga del modelo
-Reemplazar la carga global del modelo:
+Esto crea una API:
 
-    doc_model = SentenceTransformer("all-MiniLM-L6-v2")
+http://localhost:8000/ask
 
-Por un sistema de carga lazy:
+Tu IDE podrá llamarla.
 
-- El modelo debe cargarse solo cuando sea necesario.
-- Debe existir una función `get_model()` que maneje la inicialización.
-- Evitar cargar el modelo durante el import del módulo.
+2️⃣ Crear extensión para VS Code
 
-2. Optimizar cálculo de hash de archivos
-El hash actual lee el archivo completo en memoria.
+Para Visual Studio Code se usan extensiones en TypeScript.
 
-Implementar hashing por bloques para soportar archivos grandes:
+Flujo:
 
-- Leer archivos en chunks de 8KB o 16KB.
-- Evitar cargar archivos completos en RAM.
+VSCode
+  │
+  ▼
+Extension
+  │
+  ▼
+IA Local API
 
-3. Mejorar sistema de chunking
-El chunking actual está basado en caracteres.
+Ejemplo simple:
 
-Mejorarlo para:
+const response = await fetch("http://localhost:8000/ask", {
+  method: "POST",
+  body: JSON.stringify({
+    prompt: "explica este codigo: " + selectedCode
+  })
+});
 
-- Mantener coherencia semántica
-- Dividir preferentemente por:
-    - párrafos
-    - oraciones
-- Mantener overlap configurable
-- Evitar fragmentar frases.
+Capacidades:
 
-4. Optimizar generación de embeddings
-Actualmente se generan embeddings sin batching optimizado.
+explicar código
 
-Mejorar:
-- usar batch_size configurable
-- usar numpy arrays
-- reducir conversiones innecesarias
+generar funciones
 
-5. Vectorizar el cálculo de similaridad
-Actualmente el cálculo de similaridad coseno se realiza en loops.
+refactorizar
 
-Optimizar usando operaciones vectorizadas con numpy.
+crear tests
 
-Evitar loops innecesarios cuando se comparan embeddings.
+autocompletar
 
-6. Implementar índice vectorial
-Agregar soporte para base vectorial local usando FAISS.
+3️⃣ Integración con IntelliJ
 
-Requisitos:
+Para IntelliJ IDEA las extensiones se hacen en Kotlin o Java.
 
-- Crear índice FAISS para embeddings.
-- Guardar el índice en disco.
-- Cargar el índice automáticamente si ya existe.
-- Permitir reconstrucción del índice si los documentos cambian.
+Flujo igual:
 
-7. Paralelizar procesamiento de documentos
-Usar paralelización para:
+plugin → API IA → Ollama
 
-- lectura de PDFs
-- extracción de texto
-- procesamiento de archivos
+El plugin puede:
 
-Se puede usar:
-- ThreadPoolExecutor
-o
-- ProcessPoolExecutor
+analizar archivo abierto
 
-8. Mejorar manejo de memoria
-Evitar:
+sugerir código
 
-- almacenar texto excesivo
-- cargar archivos completos innecesariamente
+crear clases
 
-Implementar:
-- límites de tamaño
-- limpieza de texto
-- normalización.
+refactorizar
 
-9. Mejorar extracción de texto
-Agregar:
+4️⃣ Sistema de análisis de código
 
-- limpieza de caracteres extraños
-- normalización de espacios
-- eliminación de duplicados
+Tu IA necesita contexto del proyecto.
 
-10. Mejorar sistema de caché
-El sistema actual usa JSON.
+Debes enviar al modelo:
 
-Mejorarlo para:
+archivo actual
+archivos relacionados
+lenguaje
+dependencias
 
-- evitar re-embeddings innecesarios
-- validar hashes
-- permitir invalidación automática del caché.
+Ejemplo prompt:
 
-11. Preparar sistema para RAG avanzado
-El sistema debe preparar el contexto para LLM de forma eficiente.
+Actua como ingeniero senior.
 
-Implementar:
+Lenguaje: Python
+Archivo actual:
+<codigo>
 
-- ranking de resultados
-- límite de tokens aproximado
-- deduplicación de chunks
-- contexto compacto.
+Tarea:
+refactorizar para mejorar rendimiento
+5️⃣ Herramientas de ejecución
 
-12. Modularizar arquitectura
-Separar el sistema en módulos:
+Tu IA debe poder ejecutar código.
 
-document_loader.py
-text_chunker.py
-embedding_engine.py
-vector_index.py
-semantic_search.py
-rag_context_builder.py
+Ejemplo:
 
-Esto mejora mantenibilidad.
+import subprocess
 
-13. Agregar logging
-Reemplazar prints por logging:
+def run_python(file):
+    result = subprocess.run(
+        ["python", file],
+        capture_output=True,
+        text=True
+    )
+    return result.stdout
 
-- logging.info
-- logging.warning
-- logging.error
+También puedes soportar:
 
-14. Manejo robusto de errores
-Agregar manejo de excepciones consistente para:
+python
+node
+java
+go
+rust
+6️⃣ Sistema de análisis de repositorio
 
-- archivos corruptos
-- PDFs dañados
-- CSV inválidos
-- errores de encoding.
+Para proyectos grandes necesitas indexar el repo.
 
-Resultado esperado
-------------------
+Arquitectura:
 
-El sistema mejorado debe:
+Project
+  │
+  ▼
+File Scanner
+  │
+  ▼
+Embeddings
+  │
+  ▼
+Vector DB
 
-- ser más rápido
-- escalar a miles de documentos
-- usar búsqueda vectorial eficiente
-- tener arquitectura modular
-- ser mantenible y extensible.
+Herramientas:
 
-No eliminar funcionalidades existentes.
-Solo mejorar la arquitectura, rendimiento y robustez.
+Chroma
+
+FAISS
+
+Esto permite a la IA entender todo el proyecto.
+
+7️⃣ Capacidades que deberías implementar
+
+Tu asistente puede tener comandos como:
+
+/explain
+/refactor
+/test
+/debug
+/optimize
+/generate
+
+Ejemplo:
+
+/test create unit tests for this class
+8️⃣ Sistema de agentes especializados
+
+Los asistentes modernos usan roles de agente.
+
+Coding Agent
+Debug Agent
+Test Agent
+Refactor Agent
+Documentation Agent
+
+Cada uno usa prompts especializados.
+
+9️⃣ Workspace de proyectos
+
+Crea un directorio que tu IA controle.
+
+workspace/
+  projects/
+  temp/
+  logs/
+
+La IA puede:
+
+crear archivos
+
+editar código
+
+ejecutar scripts
+
+🚀 Stack ideal para tu asistente
+LLM
+Ollama
+
+Backend
+FastAPI
+
+UI
+Gradio
+
+Embeddings
+sentence-transformers
+
+Vector DB
+Chroma
+
+IDE plugins
+VSCode extension
+IntelliJ plugin

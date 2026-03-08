@@ -39,3 +39,7 @@ Thumbs.db
 test_*.py
 !test_simple.py
 
+# Workspace (generated projects)
+workspace/
+
+

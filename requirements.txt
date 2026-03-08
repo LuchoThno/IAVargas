@@ -4,6 +4,10 @@
 # Interfaz web - Gradio 6+ (compatible con Python 3.14)
 gradio>=6.0.0
 
+# API Server - FastAPI
+fastapi>=0.100.0
+uvicorn>=0.23.0
+
 # Modelo LLM local
 ollama>=0.1.0
 
