@@ -75,7 +75,7 @@
 - [x] 6. Actualizar plugins.py con nuevos comandos
 - [x] 7. Actualizar requirements.txt
 - [x] 8. Configurar GitHub
-- [ ] 9. Probar funcionalidad
+- [x] 9. Probar funcionalidad
 
 ## Uso de la API
 
