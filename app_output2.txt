@@ -1,0 +1,38 @@
+  - Puerto 7860 en uso, intentando siguiente...
+  - Puerto 7861 en uso, intentando siguiente...
+  - Puerto 7862 en uso, intentando siguiente...
+  - Puerto 7863 en uso, intentando siguiente...
+Puerto encontrado: 7864
+Initiating IA Local Vargas...
+[LIMPIEZA] Memoria limpiada: {'deleted': 0, 'archived': 0, 'errors': 0}
+Memoria: 18 entradas
+
+**Estado del Sistema**
+
+| Componente | Estado |
+|------------|--------|
+| Modelo | llama3 |
+| Documentos | 4 archivos |
+| Memoria | 18 entradas |
+
+**Categorias:**
+Sin datos
+
+**Scope de Memoria:**
+Sin datos
+
+**Memorias Importantes:** 0
+
+**Modelos Ollama:** unknown
+
+Comandos:
+- `ejecuta:` codigo Python (seguro)
+- `busca:` busqueda web
+
+Parametros: Temperature, Max Tokens
+
+
+Iniciando interfaz web en puerto 7864...
+Cargando documentos...
+Generando embeddings de documentos...
+4 documento(s) cargado(s)

@@ -1,0 +1,41 @@
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# IDE
+*.iml
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Data & Database
+data/
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+output.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+test_*.py
+!test_simple.py
+

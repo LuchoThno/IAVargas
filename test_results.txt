@@ -1,0 +1,8 @@
+PASS: Imports
+PASS: Hashing - aa728d6b...
+PASS: Chunking - 1 chunks
+PASS: Preload model
+PASS: Embed - shape (384,)
+FAIL: Batch - SentenceTransformer.encode() has been called with additional keyword arguments that this model does not use: ['parallel_backend']. As per SentenceTransformer.get_model_kwargs(), this model does not accept any additional keyword arguments.
+FAIL: Search - SentenceTransformer.encode() has been called with additional keyword arguments that this model does not use: ['parallel_backend']. As per SentenceTransformer.get_model_kwargs(), this model does not accept any additional keyword arguments.
+PASS: RAG - 26 chars

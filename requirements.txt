@@ -1,0 +1,36 @@
+# 🤖 IA Local Vargas - Dependencias
+# ================================
+
+# Interfaz web - Gradio 6+ (compatible con Python 3.14)
+gradio>=6.0.0
+
+# Modelo LLM local
+ollama>=0.1.0
+
+# Embeddings y búsqueda semántica
+sentence-transformers>=2.2.0
+numpy>=1.24.0
+chromadb>=0.4.0
+
+# FAISS para búsqueda vectorial eficiente
+faiss-cpu>=1.7.0  # Versión CPU (más compatible)
+# faiss-gpu>=1.7.0  # Versión GPU (opcional, requiere CUDA)
+
+# Manejo de documentos
+pypdf>=3.0.0
+pandas>=2.0.0
+openpyxl>=3.1.0  # Para archivos Excel
+
+# Búsqueda web
+duckduckgo-search>=5.0.0
+ddgs>=0.8.0  # Alias alternativo
+
+# RAG y vector bases de datos
+llama-index>=0.10.0
+llama-index-llms-ollama>=0.1.0
+llama-index-embeddings-huggingface>=0.1.0
+
+# Utilidades
+python-dotenv>=1.0.0  # Para variables de entorno
+tiktoken>=0.5.0  # Para tokenización
+
