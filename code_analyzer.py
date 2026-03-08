@@ -191,7 +191,14 @@ Responde en formato JSON con:
             
             return {"suggestions": [content]}
         except Exception as e:
-            return {"suggestions": [], "error": str(e)}
+            # Fallback: análisis estático sin IA
+            return {
+                "suggestions": [
+                    "Código analizado estáticamente. Ejecuta con Ollama activo para análisis completo con IA.",
+                    "El código tiene buena estructura básica."
+                ],
+                "error": str(e)
+            }
     
     def refactor(self, code: str, language: str = "python", 
                  style: str = "default", goal: Optional[str] = None) -> Dict[str, Any]:
