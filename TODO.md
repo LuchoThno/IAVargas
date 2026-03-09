@@ -12,6 +12,8 @@
 ✅ 4. Sistema de comandos: /refactor, /test, /debug, /optimize, /generate
 ✅ 5. Creador de proyectos con templates
 ✅ 6. Workspace de proyectos
+✅ 7. **NUEVO** Extensión de VSCode
+✅ 8. **NUEVO** Plugin de IntelliJ IDEA
 
 ## Plan de Implementación
 

@@ -1,0 +1,319 @@
+{
+  "name": "ia-local-vargas",
+  "displayName": "IA Local Vargas",
+  "description": "Asistente de IA local para programadores - Integración con Ollama",
+  "version": "1.0.0",
+  "publisher": "IAVargas",
+  "author": "Luis Vargas",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Intellisense",
+    "Other"
+  ],
+  "keywords": [
+    "ai",
+    "ollama",
+    "llm",
+    "assistant",
+    "coding",
+    "local"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:iaLocalVargas.ask",
+    "onCommand:iaLocalVargas.analyze",
+    "onCommand:iaLocalVargas.refactor",
+    "onCommand:iaLocalVargas.test",
+    "onCommand:iaLocalVargas.debug",
+    "onCommand:iaLocalVargas.optimize",
+    "onCommand:iaLocalVargas.generate",
+    "onCommand:iaLocalVargas.createProject",
+    "onCommand:iaLocalVargas.orchestrate",
+    "onCommand:iaLocalVargas.listAgents",
+    "onCommand:iaLocalVargas.executeAgent",
+    "onView:iaLocalVargasSidebar"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "iaLocalVargas.ask",
+        "title": "IA: Preguntar a la IA",
+        "description": "Envía una pregunta al asistente de IA"
+      },
+      {
+        "command": "iaLocalVargas.analyze",
+        "title": "IA: Analizar código",
+        "description": "Analiza el código seleccionado"
+      },
+      {
+        "command": "iaLocalVargas.refactor",
+        "title": "IA: Refactorizar",
+        "description": "Refactoriza el código seleccionado"
+      },
+      {
+        "command": "iaLocalVargas.test",
+        "title": "IA: Generar tests",
+        "description": "Genera tests unitarios para el código"
+      },
+      {
+        "command": "iaLocalVargas.debug",
+        "title": "IA: Depurar código",
+        "description": "Encuentra y corrige errores"
+      },
+      {
+        "command": "iaLocalVargas.optimize",
+        "title": "IA: Optimizar código",
+        "description": "Optimiza el código seleccionado"
+      },
+      {
+        "command": "iaLocalVargas.generate",
+        "title": "IA: Generar código",
+        "description": "Genera código a partir de una descripción"
+      },
+      {
+        "command": "iaLocalVargas.explain",
+        "title": "IA: Explicar código",
+        "description": "Explica el código seleccionado"
+      },
+      {
+        "command": "iaLocalVargas.execute",
+        "title": "IA: Ejecutar código",
+        "description": "Ejecuta el código seleccionado"
+      },
+      {
+        "command": "iaLocalVargas.showPanel",
+        "title": "IA: Mostrar panel",
+        "description": "Abre el panel de IA"
+      },
+      {
+        "command": "iaLocalVargas.status",
+        "title": "IA: Estado del sistema",
+        "description": "Muestra el estado de la API"
+      },
+      {
+        "command": "iaLocalVargas.createProject",
+        "title": "IA: Crear proyecto",
+        "description": "Crea un proyecto completo usando ai_dev_system"
+      },
+      {
+        "command": "iaLocalVargas.orchestrate",
+        "title": "IA: Orquestar tarea",
+        "description": "Ejecuta una tarea compleja con orquestacion de agentes"
+      },
+      {
+        "command": "iaLocalVargas.listAgents",
+        "title": "IA: Listar agentes",
+        "description": "Muestra los agentes disponibles de ai_dev_system"
+      },
+      {
+        "command": "iaLocalVargas.executeAgent",
+        "title": "IA: Ejecutar agente",
+        "description": "Ejecuta un agente de ai_dev_system en el codigo seleccionado"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "iaLocalVargas.analyze",
+          "when": "editorHasSelection",
+          "group": "iaLocalVargas@1"
+        },
+        {
+          "command": "iaLocalVargas.refactor",
+          "when": "editorHasSelection",
+          "group": "iaLocalVargas@2"
+        },
+        {
+          "command": "iaLocalVargas.test",
+          "when": "editorHasSelection",
+          "group": "iaLocalVargas@3"
+        },
+        {
+          "command": "iaLocalVargas.debug",
+          "when": "editorHasSelection",
+          "group": "iaLocalVargas@4"
+        },
+        {
+          "command": "iaLocalVargas.optimize",
+          "when": "editorHasSelection",
+          "group": "iaLocalVargas@5"
+        },
+        {
+          "command": "iaLocalVargas.explain",
+          "when": "editorHasSelection",
+          "group": "iaLocalVargas@6"
+        },
+        {
+          "command": "iaLocalVargas.execute",
+          "when": "editorHasSelection",
+          "group": "iaLocalVargas@7"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "iaLocalVargas.ask",
+          "when": "editorFocus"
+        },
+        {
+          "command": "iaLocalVargas.analyze",
+          "when": "editorFocus"
+        },
+        {
+          "command": "iaLocalVargas.refactor",
+          "when": "editorFocus"
+        },
+        {
+          "command": "iaLocalVargas.test",
+          "when": "editorFocus"
+        },
+        {
+          "command": "iaLocalVargas.debug",
+          "when": "editorFocus"
+        },
+        {
+          "command": "iaLocalVargas.optimize",
+          "when": "editorFocus"
+        },
+        {
+          "command": "iaLocalVargas.generate",
+          "when": "editorFocus"
+        },
+        {
+          "command": "iaLocalVargas.explain",
+          "when": "editorFocus"
+        },
+        {
+          "command": "iaLocalVargas.execute",
+          "when": "editorFocus"
+        },
+        {
+          "command": "iaLocalVargas.createProject",
+          "when": "editorFocus"
+        },
+        {
+          "command": "iaLocalVargas.orchestrate",
+          "when": "editorFocus"
+        },
+        {
+          "command": "iaLocalVargas.listAgents",
+          "when": "editorFocus"
+        },
+        {
+          "command": "iaLocalVargas.executeAgent",
+          "when": "editorHasSelection"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "iaLocalVargas.ask",
+        "key": "ctrl+alt+i",
+        "mac": "cmd+alt+i",
+        "when": "editorFocus"
+      },
+      {
+        "command": "iaLocalVargas.analyze",
+        "key": "ctrl+alt+a",
+        "mac": "cmd+alt+a",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "iaLocalVargas.refactor",
+        "key": "ctrl+alt+r",
+        "mac": "cmd+alt+r",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "iaLocalVargas.status",
+        "key": "ctrl+alt+s",
+        "mac": "cmd+alt+s",
+        "when": "editorFocus"
+      }
+    ],
+    "configuration": {
+      "title": "IA Local Vargas",
+      "properties": {
+        "iaLocalVargas.apiUrl": {
+          "type": "string",
+          "default": "http://localhost:8000",
+          "description": "URL de la API de IA Local Vargas"
+        },
+        "iaLocalVargas.model": {
+          "type": "string",
+          "default": "llama3",
+          "description": "Modelo de Ollama a usar"
+        },
+        "iaLocalVargas.temperature": {
+          "type": "number",
+          "default": 0.7,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Temperatura para generación de texto"
+        },
+        "iaLocalVargas.maxTokens": {
+          "type": "number",
+          "default": 2048,
+          "minimum": 256,
+          "maximum": 4096,
+          "description": "Máximo de tokens a generar"
+        },
+        "iaLocalVargas.autoExecute": {
+          "type": "boolean",
+          "default": false,
+          "description": "Ejecutar código automáticamente después de generarlo"
+        },
+        "iaLocalVargas.showNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Mostrar notificaciones del sistema"
+        },
+        "iaLocalVargas.enableInlineCompletion": {
+          "type": "boolean",
+          "default": true,
+          "description": "Habilitar autocompletado inline con IA"
+        }
+      }
+    },
+    "views": {
+      "explorer": [
+        {
+          "id": "iaLocalVargasSidebar",
+          "name": "IA Vargas",
+          "icon": "media/icon.svg"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "explorer": {
+        "id": "iaLocalVargasSidebar",
+        "title": "IA Vargas",
+        "icon": "media/icon.svg"
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "node ./out/test/runTest.js",
+    "lint": "eslint src --ext .ts",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/node": "^18.19.0",
+    "@types/vscode": "^1.75.0",
+    "@vscode/test-electron": "^2.3.0",
+    "eslint": "^8.56.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.19.0",
+    "typescript": "^5.3.0",
+    "vsce": "^2.14.0"
+  }
+}
+

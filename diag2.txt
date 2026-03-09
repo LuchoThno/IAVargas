@@ -1,0 +1,17 @@
+==================================================
+DIAGNOSTICO DE OLLAMA
+==================================================
+
+1. Verificando proceso de Ollama...
+   OK: Ollama esta corriendo
+
+2. Probando API server...
+   OK: API Server: {"status": "healthy", "ollama": "connected", "model": "llama3", "ai_dev_system": false, "available_models": ["llama3:latest"]}
+
+3. Probando /ask...
+   Status: 200
+   OK: Hola! ¿Cómo estás?
+
+==================================================
+FIN DEL DIAGNOSTICO
+==================================================

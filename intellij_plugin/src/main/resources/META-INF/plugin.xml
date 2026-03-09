@@ -1,0 +1,197 @@
+<!DOCTYPE plugin-configuration PUBLIC
+        "-//JetBrains//plugin-configuration DTD 1.0//EN"
+        "http://www.jetbrains.org/jetbrains/intellij/plugin-configuration.dtd">
+
+<plugin-configuration>
+    <id>com.iavargas.ialocalvargas</id>
+    <name>IA Local Vargas</name>
+    <version>1.0.0</version>
+    <vendor email="luis@example.com" url="https://github.com/iavargas">IA Vargas</vendor>
+    <description>
+        Asistente de IA local para programadores
+        
+        Características:
+        - Chat con IA local
+        - Análisis de código
+        - Refactorización automática
+        - Generación de tests
+        - Depuración de errores
+        - Optimización de código
+        - Generación de código
+        - ai_dev_system: Orquestación de agentes
+        - ai_dev_system: Creación de proyectos
+        - ai_dev_system: Ejecución de agentes
+    </description>
+    
+    <!-- Compatibility -->
+    <idea-version since-build="223" until-build="233.*"/>
+    
+    <!-- Product -->
+    <product-name>IA Local Vargas</product-name>
+    <product-code>IALV</product-code>
+    
+    <!-- Dependencies -->
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.python</depends>
+    <depends>com.intellij.modules.java</depends>
+    
+    <!-- Extensions -->
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Action Groups -->
+    </extensions>
+    
+    <!-- Actions -->
+    <actions>
+        <!-- Toolbar -->
+        <group id="IaLocalVargas.Toolbar" text="IA Vargas" description="Herramientas de IA">
+            <add-to-group group-id="ToolbarRunGroup" anchor="last"/>
+            
+            <action id="IaLocalVargas.Analyze"
+                    class="com.iavargas.actions.AnalyzeAction"
+                    text="Analizar Código"
+                    description="Analiza el código seleccionado">
+                <add-to-group group-id="IaLocalVargas.Toolbar" anchor="first"/>
+            </action>
+            
+            <action id="IaLocalVargas.Refactor"
+                    class="com.iavargas.actions.RefactorAction"
+                    text="Refactorizar"
+                    description="Refactoriza el código seleccionado">
+                <add-to-group group-id="IaLocalVargas.Toolbar"/>
+            </action>
+            
+            <action id="IaLocalVargas.Test"
+                    class="com.iavargas.actions.TestAction"
+                    text="Generar Tests"
+                    description="Genera tests unitarios">
+                <add-to-group group-id="IaLocalVargas.Toolbar"/>
+            </action>
+            
+            <action id="IaLocalVargas.Debug"
+                    class="com.iavargas.actions.DebugAction"
+                    text="Depurar"
+                    description="Encuentra y corrige errores">
+                <add-to-group group-id="IaLocalVargas.Toolbar"/>
+            </action>
+            
+            <action id="IaLocalVargas.Optimize"
+                    class="com.iavargas.actions.OptimizeAction"
+                    text="Optimizar"
+                    description="Optimiza el código">
+                <add-to-group group-id="IaLocalVargas.Toolbar"/>
+            </action>
+            
+            <separator/>
+            
+            <action id="IaLocalVargas.Chat"
+                    class="com.iavargas.actions.ChatAction"
+                    text="Abrir Chat"
+                    description="Abre el panel de chat">
+                <add-to-group group-id="IaLocalVargas.Toolbar"/>
+            </action>
+            
+            <separator/>
+            
+            <action id="IaLocalVargas.CreateProject"
+                    class="com.iavargas.actions.CreateProjectAction"
+                    text="Crear Proyecto"
+                    description="Crea un proyecto completo con ai_dev_system">
+                <add-to-group group-id="IaLocalVargas.Toolbar"/>
+            </action>
+            
+            <action id="IaLocalVargas.Orchestrate"
+                    class="com.iavargas.actions.OrchestrateAction"
+                    text="Orquestar Tarea"
+                    description="Ejecuta una tarea compleja con ai_dev_system">
+                <add-to-group group-id="IaLocalVargas.Toolbar"/>
+            </action>
+            
+            <action id="IaLocalVargas.ListAgents"
+                    class="com.iavargas.actions.ListAgentsAction"
+                    text="Listar Agentes"
+                    description="Muestra los agentes disponibles">
+                <add-to-group group-id="IaLocalVargas.Toolbar"/>
+            </action>
+        </group>
+        
+        <!-- Editor Context Menu -->
+        <group id="IaLocalVargas.EditorMenu" text="IA Vargas">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            
+            <action id="IaLocalVargas.EditorAnalyze"
+                    class="com.iavargas.actions.AnalyzeAction"
+                    text="IA: Analizar Código"
+                    description="Analiza el código seleccionado">
+                <add-to-group group-id="IaLocalVargas.EditorMenu"/>
+            </action>
+            
+            <action id="IaLocalVargas.EditorRefactor"
+                    class="com.iavargas.actions.RefactorAction"
+                    text="IA: Refactorizar"
+                    description="Refactoriza el código seleccionado">
+                <add-to-group group-id="IaLocalVargas.EditorMenu"/>
+            </action>
+            
+            <action id="IaLocalVargas.EditorTest"
+                    class="com.iavargas.actions.TestAction"
+                    text="IA: Generar Tests"
+                    description="Genera tests unitarios">
+                <add-to-group group-id="IaLocalVargas.EditorMenu"/>
+            </action>
+            
+            <action id="IaLocalVargas.EditorDebug"
+                    class="com.iavargas.actions.DebugAction"
+                    text="IA: Depurar"
+                    description="Encuentra y corrige errores">
+                <add-to-group group-id="IaLocalVargas.EditorMenu"/>
+            </action>
+            
+            <action id="IaLocalVargas.EditorOptimize"
+                    class="com.iavargas.actions.OptimizeAction"
+                    text="IA: Optimizar"
+                    description="Optimiza el código">
+                <add-to-group group-id="IaLocalVargas.EditorMenu"/>
+            </action>
+            
+            <action id="IaLocalVargas.EditorExplain"
+                    class="com.iavargas.actions.ExplainAction"
+                    text="IA: Explicar"
+                    description="Explica el código seleccionado">
+                <add-to-group group-id="IaLocalVargas.EditorMenu"/>
+            </action>
+            
+            <separator/>
+            
+            <action id="IaLocalVargas.EditorExecute"
+                    class="com.iavargas.actions.ExecuteAction"
+                    text="IA: Ejecutar"
+                    description="Ejecuta el código seleccionado">
+                <add-to-group group-id="IaLocalVargas.EditorMenu"/>
+            </action>
+            
+            <separator/>
+            
+            <action id="IaLocalVargas.EditorExecuteAgent"
+                    class="com.iavargas.actions.ExecuteAgentAction"
+                    text="IA: Ejecutar Agente"
+                    description="Ejecuta un agente de ai_dev_system">
+                <add-to-group group-id="IaLocalVargas.EditorMenu"/>
+            </action>
+        </group>
+    </actions>
+    
+    <!-- Application Configurable -->
+    <configurable instance="com.iavargas.config.IaLocalVargasConfigurable"
+                  id="IaLocalVargas.Settings"
+                  displayName="IA Local Vargas"
+                  groupId="tools"/>
+    
+    <!-- Properties -->
+    <properties>
+        <property name="apiUrl" value="http://localhost:8000"/>
+        <property name="model" value="llama3"/>
+        <property name="temperature" value="0.7"/>
+        <property name="maxTokens" value="2048"/>
+    </properties>
+</plugin-configuration>
+

@@ -1,0 +1,72 @@
+package com.iavargas.actions
+
+import com.intellij.openapi.actionSystem.AnAction
+import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.PlatformDataKeys
+import com.intellij.openapi.editor.Editor
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.ui.Messages
+import com.iavargas.IaLocalVargasPlugin
+
+/**
+ * Acción para optimizar código
+ */
+class OptimizeAction : AnAction() {
+    
+    override fun actionPerformed(event: AnActionEvent) {
+        val project = event.project ?: return
+        val editor = event.getData(PlatformDataKeys.EDITOR) ?: return
+        
+        val selectionModel = editor.selectionModel
+        if (!selectionModel.hasSelection()) {
+            IaLocalVargasPlugin.showError(project, "Selecciona código para optimizar")
+            return
+        }
+        
+        val code = selectionModel.selectedText ?: return
+        val language = getLanguage(editor)
+        
+        try {
+            val api = getApi()
+            val result = api.optimize(code, language)
+            
+            // Mostrar diff y preguntar si aplicar
+            val apply = Messages.showYesNoDialog(
+                project,
+                "¿Aplicar optimización?",
+                "Optimización",
+                "Aplicar",
+                "Cancelar",
+                Messages.getQuestionIcon()
+            )
+            
+            if (apply == Messages.YES) {
+                replaceSelection(project, editor, result)
+                IaLocalVargasPlugin.showInfo(project, "✅ Código optimizado")
+            }
+            
+        } catch (e: Exception) {
+            IaLocalVargasPlugin.showError(project, "Error: ${e.message}")
+        }
+    }
+    
+    private fun getApi() = IaLocalVargasPlugin.api
+    
+    private fun getLanguage(editor: Editor): String {
+        val file = editor.document.psiFile
+        return when (file?.language?.id) {
+            "Python" -> "python"
+            "Java" -> "java"
+            "JavaScript" -> "javascript"
+            "Kotlin" -> "kotlin"
+            else -> "python"
+        }
+    }
+    
+    private fun replaceSelection(project: Project, editor: Editor, text: String) {
+        com.intellij.openapi.command.WriteCommandAction.runWriteCommandAction(project) {
+            editor.selectionModel.replaceSelection(text)
+        }
+    }
+}
+
